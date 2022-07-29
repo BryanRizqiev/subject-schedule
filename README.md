@@ -1,1 +1,1 @@
-#Jadwal perkuliahan OFFLINE dan jadwal deadline tugas
+Jadwal perkuliahan OFFLINE dan jadwal deadline tugas
