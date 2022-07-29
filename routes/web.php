@@ -30,7 +30,7 @@ Route::get('/auth', function() {
 
 Route::get('/', function () {
     return view('pages.dashboard');
-})->name('dashboard');
+})->name('dashboard')->middleware('auth');
 
 Route::get('/welcome', function () {
     return view('welcome');

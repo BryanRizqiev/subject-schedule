@@ -39,4 +39,9 @@ class User extends Authenticatable
     // protected $casts = [
     //     'email_verified_at' => 'datetime',
     // ];
+
+    public function classUNP()
+    {
+        return $this->belongsTo(ClassUNP::class, 'classId');
+    }
 }
