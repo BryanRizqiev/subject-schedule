@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/login', function () {
     return view('login');
 })->name('login');
@@ -31,3 +27,35 @@ Route::post('/storeReg', [RegisterController::class, 'store']);
 Route::get('/auth', function() {
     return view('auth');
 })->middleware('auth');
+
+Route::get('/', function () {
+    return view('pages.dashboard');
+})->name('dashboard');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::get('/profile', function () {
+    return view('pages.profile');
+})->name('profile');
+
+Route::get('/basic-table', function () {
+    return view('pages.basic-table');
+})->name('basic-table');
+
+Route::get('/icons', function () {
+    return view('pages.fontawesome');
+})->name('icons');
+
+Route::get('/google-map', function () {
+    return view('pages.map-google');
+})->name('google-map');
+
+Route::get('/blank-page', function () {
+    return view('pages.blank');
+})->name('blank-page');
+
+Route::get('/404', function () {
+    return view('pages.404');
+})->name('404-page');
