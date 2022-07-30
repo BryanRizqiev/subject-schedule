@@ -21,20 +21,13 @@ Route::get('/login', function () {
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/indexReg', [RegisterController::class, 'index']);
-Route::post('/storeReg', [RegisterController::class, 'store']);
-
-Route::get('/auth', function() {
-    return view('auth');
-})->middleware('auth');
-
 Route::get('/', function () {
     return view('pages.dashboard');
 })->name('dashboard')->middleware('auth');
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('welcome');
 
 Route::get('/profile', function () {
     return view('pages.profile');

@@ -21,5 +21,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/store', [RegisterController::class, 'store']);
-
-Route::resource('/schedule', ScheduleController::class);

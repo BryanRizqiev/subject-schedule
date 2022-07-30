@@ -18,9 +18,6 @@
                     <ol class="breadcrumb ms-auto">
                         <li><a href="#" class="fw-normal">Dashboard</a></li>
                     </ol>
-                    <a href="https://www.wrappixel.com/templates/ampleadmin/" target="_blank"
-                        class="btn btn-danger  d-none d-md-block pull-right ms-3 hidden-xs hidden-sm waves-effect waves-light text-white">Upgrade
-                        to Pro</a>
                 </div>
             </div>
         </div>
@@ -40,7 +37,7 @@
         <div class="row">
             <!-- Column -->
             <div class="col-lg-4 col-xlg-3 col-md-12">
-                <div class="white-box">
+                {{-- <div class="white-box">
                     <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
                         <div class="overlay-box">
                             <div class="user-content">
@@ -62,7 +59,7 @@
                             <h1>556</h1>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <!-- Column -->
             <!-- Column -->
