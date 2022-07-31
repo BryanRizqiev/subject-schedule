@@ -14,11 +14,11 @@ class LoginController extends Controller
             'username' => ['required'],
             'password' => ['required'],
         ]);
- 
+
         if (Auth::attempt($credentials)) {
             $r->session()->regenerate();
- 
-            return redirect()->intended(route('login'));
+
+            return redirect()->intended(route('dashboard'));
         }
 
         return back();
@@ -27,11 +27,11 @@ class LoginController extends Controller
     public function logout(Request $r)
     {
         Auth::logout();
- 
+
         $r->session()->invalidate();
-     
+
         $r->session()->regenerateToken();
-     
+
         return redirect()->route('login');
     }
 }
