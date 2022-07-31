@@ -9,17 +9,20 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function store(Request $r)
+    public function __invoke(Request $r)
     {
         $validatedData = $r->validate([
-            'classId'=> ['required'], 
-            'name' => ['required'], 
+            'classId'=> ['required', 'numeric'], 
+            'name' => ['required', 'min:6'], 
             'username' => ['required', 'unique:users,username'], 
             'password' => ['required'], 
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::create($validatedData);
-        return redirect('/login');
+        return response()->json([
+            'succes' => true,
+            'data' => $validatedData,
+        ], 201);
     }
 }

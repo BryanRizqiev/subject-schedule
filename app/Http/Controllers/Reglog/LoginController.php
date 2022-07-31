@@ -18,8 +18,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $r->session()->regenerate();
  
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended(route('login'));
         }
+
+        return back();
     }
 
     public function logout(Request $r)

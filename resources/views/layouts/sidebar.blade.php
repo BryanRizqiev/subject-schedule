@@ -19,7 +19,7 @@
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('profile') }}"
                         aria-expanded="false">
                         <i class="fa fa-user" aria-hidden="true"></i>
-                        <span class="hide-menu">Profile</span>
+                        <span class="hide-menu">Buat jadwal</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

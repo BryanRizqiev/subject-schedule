@@ -37,17 +37,14 @@ class ScheduleController extends Controller
     public function store(Request $r)
     {
         $validatedData = $r->validate([
-            'subject_id' => ['required'], 
-            'class_id' => ['required'], 
+            'subject_id' => ['required', 'numeric'], 
+            'class_id' => ['required', 'numeric'], 
             'location' => ['required'], 
             'date' => ['required', 'date'], 
         ]);
 
         Schedule::create($validatedData);
-        return response()->json([
-            'message' => 'success',
-            'body' => $validatedData
-        ], 201);
+        return redirect()->route('dashboard');
     }
 
     /**

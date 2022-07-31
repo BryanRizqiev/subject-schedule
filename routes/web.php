@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Reglog\LoginController;
 use App\Http\Controllers\Reglog\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -21,34 +22,42 @@ Route::get('/login', function () {
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/', function () {
-    return view('pages.dashboard');
-})->name('dashboard')->middleware('auth');
-
 // Route::get('/welcome', function () {
 //     return view('welcome');
 // })->name('welcome');
 
-Route::get('/profile', function () {
-    return view('pages.profile');
-})->name('profile');
 
-Route::get('/basic-table', function () {
-    return view('pages.basic-table');
-})->name('basic-table');
 
-Route::get('/icons', function () {
-    return view('pages.fontawesome');
-})->name('icons');
+Route::middleware(['auth'])->group(function() {
+    Route::resource('schedule', ScheduleController::class)->names('schedule');
 
-Route::get('/google-map', function () {
-    return view('pages.map-google');
-})->name('google-map');
+    Route::get('/', function () {
+        return view('pages.dashboard');
+    })->name('dashboard');
 
-Route::get('/blank-page', function () {
-    return view('pages.blank');
-})->name('blank-page');
+    Route::get('/profile', function () {
+        return view('pages.profile');
+    })->name('profile');
+    
+    Route::get('/basic-table', function () {
+        return view('pages.basic-table');
+    })->name('basic-table');
+    
+    Route::get('/icons', function () {
+        return view('pages.fontawesome');
+    })->name('icons');
+    
+    Route::get('/google-map', function () {
+        return view('pages.map-google');
+    })->name('google-map');
+    
+    Route::get('/blank-page', function () {
+        return view('pages.blank');
+    })->name('blank-page');
+    
+    Route::get('/404', function () {
+        return view('pages.404');
+    })->name('404-page');
+});
 
-Route::get('/404', function () {
-    return view('pages.404');
-})->name('404-page');
+

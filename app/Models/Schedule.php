@@ -11,4 +11,9 @@ class Schedule extends Model
 
     protected $table = 'schedule';
     protected $fillable = ['subject_id', 'class_id', 'location', 'date'];
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

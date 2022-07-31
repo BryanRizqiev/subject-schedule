@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('subject_id');
             $table->foreignId('class_id');
             $table->string('location');
-            $table->date('date');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }
