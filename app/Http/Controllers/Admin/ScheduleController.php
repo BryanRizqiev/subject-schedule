@@ -42,10 +42,10 @@ class ScheduleController extends Controller
     public function store(Request $r)
     {
         $validatedData = $r->validate([
-            'subject_id' => ['required', 'numeric'], 
-            'class_id' => ['required', 'numeric'], 
-            'location' => ['required'], 
-            'date' => ['required', 'date'], 
+            'subject_id' => ['required', 'numeric'],
+            'class_id' => ['required', 'numeric'],
+            'location' => ['required'],
+            'date' => ['required', 'date'],
         ]);
 
         Schedule::create($validatedData);
@@ -81,9 +81,21 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Schedule $schedule)
     {
-        //
+        $validatedData = $request->validate([
+            'subject_id' => ['required', 'numeric'],
+            'location' => ['required'],
+            'date' => ['required', 'date'],
+        ]);
+
+        if ($validatedData) {
+            $schedule->update($request->all());
+            return response()->json(['success' => true, 'msg' => 'Jadwal berhasil diubah'], 200);
+        }
+
+        return response()->json(['success' => false, 'msg' => 'Jadwal tidak dapat diubah'], 500);
+        // return redirect()->back()->with('update-schedule-success', 'Jadwal berhasil diubah');
     }
 
     /**

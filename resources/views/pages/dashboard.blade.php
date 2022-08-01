@@ -8,46 +8,55 @@
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Edit jadwal</h4>
-                <button type="button" class="close btn btn-danger text-white" data-bs-dismiss="modal" aria-label="Close">
+                <button type="button" class="close btn btn-danger text-white" data-bs-dismiss="modal"
+                    aria-label="Close">
                     X
                 </button>
             </div>
             <div class="modal-body mx-3 parent-modal-form">
-                <input type="hidden" id="top-secret-schedule-id">
-                <div class="form-group mb-5">
-                    <label class="col-sm-12" for="edit-schedule-subject_id">Pilih mapel</label>
+                <form id="modalForm">
+                    @csrf
+                    @method('PUT')
+                    <div id="message"></div>
+                    <input type="hidden" id="schedule_id">
+                    <div class="form-group mb-5">
+                        <label class="col-sm-12" for="subject_id">Pilih mapel</label>
 
-                    <div class="col-sm-12 border-bottom">
-                        <select class="form-select shadow-none p-0 border-0" id="edit-schedule-subject_id"
-                            name="edit-schedule-subject_id">
-                            @foreach ($subjects as $subject)
-                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="col-sm-12 border-bottom">
+                            <select class="form-select shadow-none p-0 border-0" id="subject_id" name="subject_id">
+                                @foreach ($subjects as $subject)
+                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="md-form mb-5">
-                    <label class="col-sm-12" for="edit-schedule-location">Pilih lokasi</label>
+                    <div class="md-form mb-5">
+                        <label class="col-sm-12" for="location">Pilih lokasi</label>
 
-                    <div class="col-sm-12 border-bottom">
-                        <select class="form-select shadow-none p-0 border-0" id="edit-schedule-location"
-                            name="edit-schedule-location">
-                            <option value="Kampus 1">Kampus 1</option>
-                            <option value="Kampus 2">Kampus 2</option>
-                            <option value="Kampus 3">Kampus 3</option>
-                            <option value="Kampus 4">Kampus 4</option>
-                            <option value="Kampus 5">Kampus 5</option>
-                        </select>
+                        <div class="col-sm-12 border-bottom">
+                            <select class="form-select shadow-none p-0 border-0" id="location" name="location">
+                                <option value="Kampus 1">Kampus 1</option>
+                                <option value="Kampus 2">Kampus 2</option>
+                                <option value="Kampus 3">Kampus 3</option>
+                                <option value="Kampus 4">Kampus 4</option>
+                                <option value="Kampus 5">Kampus 5</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group mb-3">
-                    <label class="col-md-12 p-0" for="edit-schedule-date">Pilih waktu</label>
-                    <div class="col-md-12 border-bottom p-0">
-                        <input type="datetime-local" placeholder="123 456 7890" class="form-control p-0 border-0"
-                            id="edit-schedule-date" name="edit-schedule-date">
+                    <div class="form-group mb-3">
+                        <label class="col-md-12 p-0" for="date">Pilih waktu</label>
+                        <div class="col-md-12 border-bottom p-0">
+                            <input type="datetime-local" placeholder="123 456 7890" class="form-control p-0 border-0"
+                                id="date" name="date">
+                        </div>
                     </div>
-                </div>
-                <button class="btn btn-primary" id="edit-schedule-submit">Update</button>
+                    <div class="form-group mb-3">
+                        <button class="btn btn-primary" type="button" id="edit-schedule-submit">
+                            <span class="spinner-border text-primary spinner-border-sm" id="loading"
+                                style="display:none;" role="status" aria-hidden="true"></span> Update
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -173,12 +182,13 @@
                                 <h5 class="font-medium">{{ $schedule->subject->name }}</h5>
                                 <span class="mb-3 d-block">{{ $schedule->location }}</span>
                                 <div class="comment-footer d-md-flex align-items-center">
-                                    <span
-                                        class="btn btn-primary rounded">{{ Carbon\Carbon::parse($schedule->date)->isoFormat('dddd, D MMMM Y') }}</span>
-                                    <span
-                                        class="btn btn-primary rounded ms-2">{{ Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
+                                    <span class="btn btn-primary rounded">{{
+                                        Carbon\Carbon::parse($schedule->date)->isoFormat('dddd, D MMMM Y') }}</span>
+                                    <span class="btn btn-primary rounded ms-2">{{
+                                        Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
                                     <div class="text-muted fs-2 ms-auto mt-2 mt-md-0 d-flex parent-edit-schedule">
-                                        <button class="btn btn-warning" id="edit-schedule" data-id="{{ $schedule->id }}">Edit</button>
+                                        <button class="btn btn-warning" id="edit-schedule"
+                                            data-id="{{ $schedule->id }}">Edit</button>
                                         <form class="ms-1" action="{{ route('schedule.destroy', $schedule->id) }}"
                                             onsubmit="return confirm('Yakin ?')" method="POST">
                                             @csrf
@@ -207,7 +217,9 @@
                                         <button class="btn btn-warning text-white btn-circle btn" type="button">
                                             <i class="fas fa-file-alt"></i>
                                         </button>
-                                        <form action="{{ route('subject.destroy', $subject->id) }}" onsubmit="return confirm('Yakin ? dengan menghapus ini maka juga akan menghapus sebagian jadwal')" method="POST">
+                                        <form action="{{ route('subject.destroy', $subject->id) }}"
+                                            onsubmit="return confirm('Yakin ? dengan menghapus ini maka juga akan menghapus sebagian jadwal')"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-circle btn">
@@ -216,10 +228,12 @@
                                         </form>
                                     </div>
                                 </div>
-                                    <div class="ms-2">
-                                        <h4 class="text-dark">{{ $subject->name }}<p class="d-block text-success d-block mt-2">{{ $subject->lecturer }}</p></h4>
-                                    </div>
-                            </li>                                
+                                <div class="ms-2">
+                                    <h4 class="text-dark">{{ $subject->name }}<p
+                                            class="d-block text-success d-block mt-2">{{ $subject->lecturer }}</p>
+                                    </h4>
+                                </div>
+                            </li>
                             @endforeach
                         </ul>
                     </div>
@@ -232,9 +246,9 @@
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
 
-@endsection
+    @endsection
 
-@push('custom-script')
+    @push('custom-script')
     <script>
         $(document).ready(function () {
             $('.parent-edit-schedule').on('click', '#edit-schedule', function () {
@@ -242,9 +256,36 @@
                 show(id);
             });
 
-            $('.parent-modal-form').on('click', '#edit-schedule-submit', function () {
-                const id = $("#top-secret-schedule-id").val();
-                alert('Id ne ' + id);
+            $('#edit-schedule-submit').click( function () {
+
+                const id = $("#schedule_id").val();
+
+                $.ajax({
+                    method: "PUT",
+                    url: "schedule/" + id,
+                    data: $('#modalForm').serialize(),
+                    type: 'json',
+                    beforeSend: function () {
+                        $('#loading').show();
+                        $('#edit-schedule-submit').attr('disabled', true);
+                    },
+                    success: function (data) {
+                        $('#loading').hide();
+                        $('#edit-schedule-submit').attr('disabled', false);
+                        $('#message').html(`
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ${data.msg}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+
+                        setTimeout(function () {
+                            $('#message').hide();
+                            location.reload();
+                        }, 2000);
+
+
+                    }
+                });
             });
         });
 
@@ -252,12 +293,12 @@
             $.get(`schedule/${id}/edit`, {}, function(data, status) {
                 const schedule = data.schedule;
                 $("#modalContactForm").modal('show');
-                $("#edit-schedule-subject_id").val(schedule.subject_id);
-                $("#edit-schedule-location").val(schedule.location);
-                $("#edit-schedule-date").val(schedule.date);
-                $("#top-secret-schedule-id").val(schedule.id);
+                $("#subject_id").val(schedule.subject_id);
+                $("#location").val(schedule.location);
+                $("#date").val(schedule.date);
+                $("#schedule_id").val(schedule.id);
             });
             
         }
     </script>
-@endpush
+    @endpush
