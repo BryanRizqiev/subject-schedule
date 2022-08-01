@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Schedule;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
-class ScheduleController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,14 +37,12 @@ class ScheduleController extends Controller
     public function store(Request $r)
     {
         $validatedData = $r->validate([
-            'subject_id' => ['required', 'numeric'], 
-            'class_id' => ['required', 'numeric'], 
-            'location' => ['required'], 
-            'date' => ['required', 'date'], 
+            'name' => ['required', 'min:4'], 
+            'lecturer' => ['required', 'min:4'], 
         ]);
 
-        Schedule::create($validatedData);
-        return redirect()->route('dashboard')->with('create-subject-success', 'Mapel berhasil dibuat');
+        Subject::create($validatedData);
+        return redirect()->route('dashboard')->with('create-schedule-success', 'Jadwal berhasil dibuat');
     }
 
     /**
@@ -64,9 +62,9 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Schedule $schedule)
+    public function edit($id)
     {
-        return response()->json(compact('schedule'));
+        //
     }
 
     /**
@@ -87,10 +85,8 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Schedule $schedule)
+    public function destroy($id)
     {
-        $schedule->delete();
-
-        return redirect()->back()->with('destroy-schedule-success', 'Jadwal berhasil dihapus');
+        //
     }
 }

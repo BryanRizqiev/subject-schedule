@@ -11,24 +11,31 @@
                 <li class="sidebar-item pt-2">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('dashboard') }}"
                         aria-expanded="false">
-                        <i class="far fa-clock" aria-hidden="true"></i>
+                        <i class="fas fa-home" aria-hidden="true"></i>
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('profile') }}"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('create-schedule') }}"
                         aria-expanded="false">
-                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <i class="fas fa-calendar-plus" aria-hidden="true"></i>
                         <span class="hide-menu">Buat jadwal</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('create-subject') }}"
+                        aria-expanded="false">
+                        <i class=" fas fa-plus-square" aria-hidden="true"></i>
+                        <span class="hide-menu">Buat mapel</span>
+                    </a>
+                </li>
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('basic-table') }}"
                         aria-expanded="false">
                         <i class="fa fa-table" aria-hidden="true"></i>
                         <span class="hide-menu">Basic Table</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('icons') }}"
                         aria-expanded="false">
@@ -36,7 +43,7 @@
                         <span class="hide-menu">Icon</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('google-map') }}"
                         aria-expanded="false">
                         <i class="fa fa-globe" aria-hidden="true"></i>
@@ -56,7 +63,7 @@
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         <span class="hide-menu">Error 404</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
 
         </nav>

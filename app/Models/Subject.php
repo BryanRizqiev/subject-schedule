@@ -12,6 +12,8 @@ class Subject extends Model
     protected $table = 'subject';
 
     protected $guarded = 'id';
+    
+    protected $fillable = ['name', 'lecturer'];
 
     public function schedules()
     {

@@ -58,8 +58,8 @@
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text text-dark fw-bolder">
-                            Iki halaman admin
+                        <span class="logo-text text-dark fw-bolder mt-1">
+                            Admin 
                             {{-- <img src="{{ asset('plugins/images/logo-text.png') }}" alt="homepage" /> --}}
                         </span>
                     </a>
@@ -85,21 +85,21 @@
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class=" in">
+                        {{-- <li class=" in">
                             <form role="search" class="app-search d-none d-md-block me-3">
                                 <input type="text" placeholder="Search..." class="form-control mt-0">
                                 <a href="" class="active">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </form>
-                        </li>
+                        </li> --}}
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
                             <a class="profile-pic" href="#">
-                                <img src="{{ asset('plugins/images/users/varun.jpg') }}" alt="user-img" width="36"
-                                    class="img-circle"><span class="text-white font-medium">{{ auth()->user()->name }}</span></a>
+                                <span class="fas fa-user text-white"></span>
+                                <span class="text-white font-medium ms-1">{{ auth()->user()->name }}</span></a>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->

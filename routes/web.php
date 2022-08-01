@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Reglog\LoginController;
 use App\Http\Controllers\Reglog\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -30,34 +31,39 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::middleware(['auth'])->group(function() {
     Route::resource('schedule', ScheduleController::class)->names('schedule');
+    Route::resource('subject', SubjectController::class)->names('subject');
 
     Route::get('/', function () {
         return view('pages.dashboard');
     })->name('dashboard');
 
-    Route::get('/profile', function () {
-        return view('pages.profile');
-    })->name('profile');
+    Route::get('/create-schedule', function () {
+        return view('pages.create-schedule');
+    })->name('create-schedule');
+
+    Route::get('/create-subject', function () {
+        return view('pages.create-subject');
+    })->name('create-subject');
     
-    Route::get('/basic-table', function () {
-        return view('pages.basic-table');
-    })->name('basic-table');
+    // Route::get('/basic-table', function () {
+    //     return view('pages.basic-table');
+    // })->name('basic-table');
     
     Route::get('/icons', function () {
         return view('pages.fontawesome');
     })->name('icons');
     
-    Route::get('/google-map', function () {
-        return view('pages.map-google');
-    })->name('google-map');
+    // Route::get('/google-map', function () {
+    //     return view('pages.map-google');
+    // })->name('google-map');
     
-    Route::get('/blank-page', function () {
-        return view('pages.blank');
-    })->name('blank-page');
+    // Route::get('/blank-page', function () {
+    //     return view('pages.blank');
+    // })->name('blank-page');
     
-    Route::get('/404', function () {
-        return view('pages.404');
-    })->name('404-page');
+    // Route::get('/404', function () {
+    //     return view('pages.404');
+    // })->name('404-page');
 });
 
 
