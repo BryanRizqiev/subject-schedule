@@ -7,39 +7,26 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Write to us</h4>
+                <h4 class="modal-title w-100 font-weight-bold">Edit jadwal</h4>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body mx-3">
                 <div class="md-form mb-5">
-                    <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form34" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="form34">Your name</label>
-                </div>
+                    <label class="col-sm-12" for="edit-schedule-location">Pilih lokasi</label>
 
-                <div class="md-form mb-5">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="email" id="form29" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="form29">Your email</label>
+                    <div class="col-sm-12 border-bottom">
+                        <select class="form-select shadow-none p-0 border-0 form-control-line" id="edit-schedule-location"
+                            name="edit-schedule-location">
+                            <option value="Kampus 1">Kampus 1</option>
+                            <option value="Kampus 2">Kampus 2</option>
+                            <option value="Kampus 3">Kampus 3</option>
+                            <option value="Kampus 4">Kampus 4</option>
+                            <option value="Kampus 5">Kampus 5</option>
+                        </select>
+                    </div>
                 </div>
-
-                <div class="md-form mb-5">
-                    <i class="fas fa-tag prefix grey-text"></i>
-                    <input type="text" id="form32" class="form-control validate">
-                    <label data-error="wrong" data-success="right" for="form32">Subject</label>
-                </div>
-
-                <div class="md-form">
-                    <i class="fas fa-pencil prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
-                    <label data-error="wrong" data-success="right" for="form8">Your message</label>
-                </div>
-
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
             </div>
         </div>
     </div>
@@ -159,13 +146,11 @@
                                 <span class="mb-3 d-block">{{ $schedule->location }}</span>
                                 <div class="comment-footer d-md-flex align-items-center">
                                     <span
-                                        class="btn btn-primary rounded">{{ \Carbon\Carbon::parse($schedule->date)->toFormattedDateString() }}</span>
+                                        class="btn btn-primary rounded">{{ Carbon\Carbon::parse($schedule->date)->toFormattedDateString() }}</span>
                                     <span
-                                        class="btn btn-primary rounded ms-2">{{ \Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
-
-                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0 d-flex">
-                                        <button class="btn btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#modalContactForm">Edit</button>
+                                        class="btn btn-primary rounded ms-2">{{ Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0 d-flex parent-edit-schedule">
+                                        <button class="btn btn-warning" id="edit-schedule" data-id="{{ $schedule->id }}">Edit</button>
                                         <form class="ms-1" action="{{ route('schedule.destroy', $schedule->id) }}"
                                             onsubmit="return confirm('Yakin ?')" method="POST">
                                             @csrf
@@ -301,4 +286,23 @@
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
 
-    @endsection
+@endsection
+
+@push('custom-script')
+    <script>
+        $(document).ready(function () {
+            $('.parent-edit-schedule').on('click', '#edit-schedule', function () {
+                const id = $(this).data('id');
+                show(id);
+            });
+        });
+
+        function show(id) {
+            $.get("schedule/" + id, {}, function(data, status) {
+                const schedule = data.schedule;
+                $("#modalContactForm").modal('show');
+                $("#edit-schedule-location").val(schedule.location);
+            });
+        }
+    </script>
+@endpush

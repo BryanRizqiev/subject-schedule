@@ -34,6 +34,7 @@
 <script src="{{ asset('plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}">
 </script>
 <script src="{{ asset('js/pages/dashboards/dashboard1.js') }}"></script> --}}
+@stack('custom-script')
 </body>
 
 </html>

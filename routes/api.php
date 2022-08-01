@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Reglog\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
