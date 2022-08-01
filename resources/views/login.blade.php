@@ -18,7 +18,7 @@
 <body>
 	<div class="container">
 		<div class="top">
-			<h1 id="title" class="hidden"><span id="logo">Daily <span>UI</span></span></h1>
+			<h1 id="title" class="hidden"><span id="logo"><span>Login page</span></span></h1>
 		</div>
 		<div class="login-box animated fadeInUp">
 			<div class="box-header">
@@ -36,8 +36,6 @@
 				<br/>
 				<button type="submit">Sign In</button>
 			</form>
-			<br/>
-			<a href="#"><p class="small">Forgot your password?</p></a>
 		</div>
 	</div>
 </body>

@@ -123,7 +123,7 @@
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-success">Tabel anyar ?</span></li>
+                        <li class="ms-auto"><span class="counter text-success">200</span></li>
                     </ul>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-purple">869</span></li>
+                        <li class="ms-auto"><span class="counter text-purple">200</span></li>
                     </ul>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-info">911</span>
+                        <li class="ms-auto"><span class="counter text-info">200</span>
                         </li>
                     </ul>
                 </div>
@@ -174,7 +174,7 @@
                                 <span class="mb-3 d-block">{{ $schedule->location }}</span>
                                 <div class="comment-footer d-md-flex align-items-center">
                                     <span
-                                        class="btn btn-primary rounded">{{ Carbon\Carbon::parse($schedule->date)->toFormattedDateString() }}</span>
+                                        class="btn btn-primary rounded">{{ Carbon\Carbon::parse($schedule->date)->isoFormat('dddd, D MMMM Y') }}</span>
                                     <span
                                         class="btn btn-primary rounded ms-2">{{ Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
                                     <div class="text-muted fs-2 ms-auto mt-2 mt-md-0 d-flex parent-edit-schedule">
@@ -203,12 +203,18 @@
                             @foreach ($subjects as $subject)
                             <li>
                                 <div class="call-chat">
-                                    <button class="btn btn-warning text-white btn-circle btn" type="button">
-                                        <i class="fas fa-file-alt"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-circle btn" type="button">
-                                        <i class="fas fa-file-excel text-white"></i>
-                                    </button>
+                                    <div class="d-flex">
+                                        <button class="btn btn-warning text-white btn-circle btn" type="button">
+                                            <i class="fas fa-file-alt"></i>
+                                        </button>
+                                        <form action="{{ route('subject.destroy', $subject->id) }}" onsubmit="return confirm('Yakin ? dengan menghapus ini maka juga akan menghapus sebagian jadwal')" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-circle btn">
+                                                <i class="fas fa-file-excel text-white"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                                     <div class="ms-2">
                                         <h4 class="text-dark">{{ $subject->name }}<p class="d-block text-success d-block mt-2">{{ $subject->lecturer }}</p></h4>
