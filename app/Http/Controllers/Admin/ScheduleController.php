@@ -44,7 +44,7 @@ class ScheduleController extends Controller
         ]);
 
         Schedule::create($validatedData);
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('create-schedule-success', 'Jadwal berhasil dibuat');
     }
 
     /**
@@ -87,8 +87,10 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Schedule $schedule)
     {
-        //
+        $schedule->delete();
+
+        return redirect()->back()->with('destroy-schedule-success', 'Jadwal berhasil dihapus');
     }
 }

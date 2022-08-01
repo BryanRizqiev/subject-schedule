@@ -20,7 +20,6 @@
 <!-- ============================================================== -->
 <script src="{{ asset('plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap tether Core JavaScript -->
-<script src="{{ asset('bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('js/app-style-switcher.js') }}"></script>
 {{-- <script src="{{ asset('plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js') }}"></script> --}}
 <!--Wave Effects -->

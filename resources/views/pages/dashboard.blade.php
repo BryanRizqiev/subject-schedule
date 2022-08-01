@@ -1,10 +1,70 @@
 @extends('layouts.template')
 
 @section('content')
+
+<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Write to us</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <input type="text" id="form34" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="form34">Your name</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <input type="email" id="form29" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="form29">Your email</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <i class="fas fa-tag prefix grey-text"></i>
+                    <input type="text" id="form32" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="form32">Subject</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-pencil prefix grey-text"></i>
+                    <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+                    <label data-error="wrong" data-success="right" for="form8">Your message</label>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
 <!-- ============================================================== -->
 <div class="page-wrapper">
+
+
+    @if (session('create-schedule-success'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session()->get('create-schedule-success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if (session('destroy-schedule-success'))
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ session()->get('destroy-schedule-success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -98,9 +158,21 @@
                                 <h5 class="font-medium">{{ $schedule->subject->name }}</h5>
                                 <span class="mb-3 d-block">{{ $schedule->location }}</span>
                                 <div class="comment-footer d-md-flex align-items-center">
-                                    <span class="badge bg-primary rounded">{{ \Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
+                                    <span
+                                        class="btn btn-primary rounded">{{ \Carbon\Carbon::parse($schedule->date)->toFormattedDateString() }}</span>
+                                    <span
+                                        class="btn btn-primary rounded ms-2">{{ \Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
 
-                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0">{{ \Carbon\Carbon::parse($schedule->date)->toFormattedDateString() }}</div>
+                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0 d-flex">
+                                        <button class="btn btn-warning" data-bs-toggle="modal"
+                                            data-bs-target="#modalContactForm">Edit</button>
+                                        <form class="ms-1" action="{{ route('schedule.destroy', $schedule->id) }}"
+                                            onsubmit="return confirm('Yakin ?')" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger text-white">Hapus</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

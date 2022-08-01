@@ -65,9 +65,11 @@
                                 <div class="col-sm-12 border-bottom">
                                     <select class="form-select shadow-none p-0 border-0 form-control-line" id="location"
                                         name="location">
-                                        @foreach (App\Enums\Campus::cases() as $location)
-                                        <option value="{{ $location->name }}">{{ $location->value }}</option>
-                                        @endforeach
+                                        <option value="Kampus 1">Kampus 1</option>
+                                        <option value="Kampus 2">Kampus 2</option>
+                                        <option value="Kampus 3">Kampus 3</option>
+                                        <option value="Kampus 4">Kampus 4</option>
+                                        <option value="Kampus 5">Kampus 5</option>
                                     </select>
                                 </div>
                             </div>

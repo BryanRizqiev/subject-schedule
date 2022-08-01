@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Campus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
