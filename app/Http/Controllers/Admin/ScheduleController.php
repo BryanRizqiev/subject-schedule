@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\Subject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -17,8 +18,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        $schedules = Schedule::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-        $subjects = Subject::all();
+        $schedules = Schedule::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get(['id', 'location', 'date', 'subject_id']);
+        $subjects = DB::table('subject')->get(['id', 'name', 'lecturer']);
         return view('pages.dashboard', compact('schedules', 'subjects'));
     }
 
