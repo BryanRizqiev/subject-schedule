@@ -20,7 +20,7 @@
                     <div class="col-sm-12 border-bottom">
                         <select class="form-select shadow-none p-0 border-0" id="edit-schedule-subject_id"
                             name="edit-schedule-subject_id">
-                            @foreach (App\Models\Subject::all() as $subject)
+                            @foreach ($subjects as $subject)
                             <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                             @endforeach
                         </select>
@@ -167,7 +167,7 @@
                     </div>
                     <div class="comment-widgets">
                         <!-- Comment Row -->
-                        @foreach (App\Models\Schedule::all() as $schedule)
+                        @foreach ($schedules as $schedule)
                         <div class="d-flex flex-row comment-row p-3 mt-0">
                             <div class="comment-text ps-2 ps-md-3 w-100">
                                 <h5 class="font-medium">{{ $schedule->subject->name }}</h5>
@@ -200,7 +200,7 @@
                     </div>
                     <div class="card-body">
                         <ul class="chatonline">
-                            @foreach (App\Models\Subject::all() as $subject)
+                            @foreach ($subjects as $subject)
                             <li>
                                 <div class="call-chat">
                                     <button class="btn btn-warning text-white btn-circle btn" type="button">

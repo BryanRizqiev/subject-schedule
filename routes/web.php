@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Reglog\LoginController;
-use App\Http\Controllers\Reglog\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', function () {
     return view('login');
-})->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout']);
+})->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 // Route::get('/welcome', function () {
 //     return view('welcome');
@@ -34,8 +33,8 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('subject', SubjectController::class)->names('subject');
 
     Route::get('/', function () {
-        return view('pages.dashboard');
-    })->name('dashboard');
+        return redirect()->route('schedule.index');
+    });
 
     Route::get('/create-schedule', function () {
         return view('pages.create-schedule');

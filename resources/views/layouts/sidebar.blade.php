@@ -9,7 +9,7 @@
             <ul id="sidebarnav">
                 <!-- User Profile-->
                 <li class="sidebar-item pt-2">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('dashboard') }}"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('schedule.index') }}"
                         aria-expanded="false">
                         <i class="fas fa-home" aria-hidden="true"></i>
                         <span class="hide-menu">Dashboard</span>

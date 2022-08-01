@@ -42,7 +42,7 @@ class SubjectController extends Controller
         ]);
 
         Subject::create($validatedData);
-        return redirect()->route('dashboard')->with('create-schedule-success', 'Jadwal berhasil dibuat');
+        return redirect()->route('schedule.index')->with('create-schedule-success', 'Jadwal berhasil dibuat');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -15,7 +16,9 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = Schedule::all();
+        $subjects = Subject::all();
+        return view('pages.dashboard', compact('schedules', 'subjects'));
     }
 
     /**
@@ -44,7 +47,7 @@ class ScheduleController extends Controller
         ]);
 
         Schedule::create($validatedData);
-        return redirect()->route('dashboard')->with('create-subject-success', 'Mapel berhasil dibuat');
+        return redirect()->route('schedule.index')->with('create-subject-success', 'Mapel berhasil dibuat');
     }
 
     /**
