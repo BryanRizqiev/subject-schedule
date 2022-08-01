@@ -48,7 +48,7 @@ class ScheduleController extends Controller
         ]);
 
         Schedule::create($validatedData);
-        return redirect()->route('schedule.index')->with('create-subject-success', 'Mapel berhasil dibuat');
+        return redirect()->route('schedule.index')->with('create-schedule-success', 'Jadwal berhasil dibuat');
     }
 
     /**
