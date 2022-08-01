@@ -85,8 +85,11 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subject $subject)
     {
-        //
+        $subject->schedules()->delete(); 
+        $subject->delete();
+
+        return redirect()->back()->with('destroy-schedule-success', 'Mapel berhasil dihapus');
     }
 }

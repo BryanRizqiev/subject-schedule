@@ -22,12 +22,6 @@ Route::get('/login', function () {
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
-// Route::get('/welcome', function () {
-//     return view('welcome');
-// })->name('welcome');
-
-
-
 Route::middleware(['auth'])->group(function() {
     Route::resource('schedule', ScheduleController::class)->names('schedule');
     Route::resource('subject', SubjectController::class)->names('subject');
