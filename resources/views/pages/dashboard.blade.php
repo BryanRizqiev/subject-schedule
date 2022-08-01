@@ -12,12 +12,25 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body mx-3">
+            <div class="modal-body mx-3 parent-modal-form">
+                <input type="hidden" id="top-secret-schedule-id">
+                <div class="form-group mb-5">
+                    <label class="col-sm-12" for="edit-schedule-subject_id">Pilih mapel</label>
+
+                    <div class="col-sm-12 border-bottom">
+                        <select class="form-select shadow-none p-0 border-0" id="edit-schedule-subject_id"
+                            name="edit-schedule-subject_id">
+                            @foreach (App\Models\Subject::all() as $subject)
+                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="md-form mb-5">
                     <label class="col-sm-12" for="edit-schedule-location">Pilih lokasi</label>
 
                     <div class="col-sm-12 border-bottom">
-                        <select class="form-select shadow-none p-0 border-0 form-control-line" id="edit-schedule-location"
+                        <select class="form-select shadow-none p-0 border-0" id="edit-schedule-location"
                             name="edit-schedule-location">
                             <option value="Kampus 1">Kampus 1</option>
                             <option value="Kampus 2">Kampus 2</option>
@@ -27,6 +40,14 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group mb-3">
+                    <label class="col-md-12 p-0" for="edit-schedule-date">Pilih waktu</label>
+                    <div class="col-md-12 border-bottom p-0">
+                        <input type="datetime-local" placeholder="123 456 7890" class="form-control p-0 border-0"
+                            id="edit-schedule-date" name="edit-schedule-date">
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="edit-schedule-submit">Update</button>
             </div>
         </div>
     </div>
@@ -295,14 +316,23 @@
                 const id = $(this).data('id');
                 show(id);
             });
+
+            $('.parent-modal-form').on('click', '#edit-schedule-submit', function () {
+                const id = $("#top-secret-schedule-id").val();
+                alert('Id ne ' + id);
+            });
         });
 
         function show(id) {
             $.get("schedule/" + id, {}, function(data, status) {
-                const schedule = data.schedule;
+                const   schedule = data.schedule;
                 $("#modalContactForm").modal('show');
+                $("#edit-schedule-subject_id").val(schedule.subject_id);
                 $("#edit-schedule-location").val(schedule.location);
+                $("#edit-schedule-date").val(schedule.date);
+                $("#top-secret-schedule-id").val(schedule.id);
             });
+            
         }
     </script>
 @endpush
