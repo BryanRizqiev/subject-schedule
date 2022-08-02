@@ -387,14 +387,13 @@ $className = auth()->user()->classUNP->name;
         }
 
         function showSubjectM(id) {
-        $.get(`subject/${id}/edit`, {}, function (data, status) {
-            const subject = data.subject;
-            $("#popupModalSubjectForm").modal('show');
-            $("#subject_id").val(subject.id);
-            $("#name").val(subject.name);
-            $("#lecturer").val(subject.lecturer);
-        });
-
+            $.get(`subject/${id}/edit`, {}, function (data, status) {
+                const subject = data.subject;
+                $("#popupModalSubjectForm").modal('show');
+                $("#subject_id").val(subject.id);
+                $("#name").val(subject.name);
+                $("#lecturer").val(subject.lecturer);
+            });
         }
     </script>
     @endpush
