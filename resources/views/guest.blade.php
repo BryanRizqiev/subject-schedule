@@ -5,11 +5,14 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>schedule table - Bootdey.com</title>
+    <title>Schedule table - Bootdey.com</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ asset('plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
+        defer></script>
 </head>
 
 <body>
@@ -24,33 +27,19 @@
 
                     <!-- Schedule Top Navigation -->
                     <nav class="nav nav-tabs parent-day">
-                        <a class="nav-link active sunday">Sun</a>
+                        <a class="nav-link all" id="all">All</a>
+                        <a class="nav-link sunday">Sun</a>
                         <a class="nav-link monday">Mon</a>
                         <a class="nav-link tuesday">Tue</a>
                         <a class="nav-link wednesday">Wed</a>
                         <a class="nav-link thursday">Thu</a>
                         <a class="nav-link friday">Fri</a>
                         <a class="nav-link saturday">Sat</a>
-                        <a class="nav-link all">All</a>
                     </nav>
 
                     <div class="tab-content">
                         <div class="tab-pane show active">
                             <div class="row">
-
-                                @foreach ($schedules as $schedule)
-                                <div class="col-md-6">
-                                    <div class="timetable-item">
-                                        <div class="timetable-item-main">
-                                            <div class="timetable-item-time">{{ $schedule->subject->name }}</div>
-                                            <div class="timetable-item-name">{{ $schedule->location }}</div>
-                                            <span class="btn btn-primary rounded">{{ Carbon\Carbon::parse($schedule->date)->isoFormat('dddd, D MMMM Y') }}</span>
-                                            <span class="btn btn-primary rounded">{{ Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                    
-                                @endforeach
 
                             </div>
                         </div>
@@ -238,47 +227,79 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $('.parent-day').on('click', '.sunday', function () {
-                console.log({{ Carbon\Carbon::SUNDAY }});
-            });            
-            $('.parent-day').on('click', '.monday', function () {
-                const day = {{ Carbon\Carbon::MONDAY }};
-                getData(day);
-            });            
-            $('.parent-day').on('click', '.tuesday', function () {
-                const day = {{ Carbon\Carbon::TUESDAY }};
-                getData(day);
-            });            
-            $('.parent-day').on('click', '.wednesday', function () {
-                const day = {{ Carbon\Carbon::WEDNESDAY }};
-                getData(day);
-            });            
-            $('.parent-day').on('click', '.thursday', function () {
-                const day = {{ Carbon\Carbon::THURSDAY }};
-                getData(day);
-            });            
-            $('.parent-day').on('click', '.friday', function () {
-                const day = {{ Carbon\Carbon::FRIDAY }};
-                getData(day);
-            });            
-            $('.parent-day').on('click', '.saturday', function () {
-                const day = {{ Carbon\Carbon::SATURDAY }};
-                getData(day);
-            });            
+            $(function () {
+                $('.all').trigger('click');
+            });
 
-            // $.get(`schedule/${id}/edit`, {}, function (data, status) {
-            //     const schedule = data.schedule;
-            //     $("#modalContactForm").modal('show');
-            //     $("#subject_id").val(schedule.subject_id);
-            //     $("#location").val(schedule.location);
-            //     $("#date").val(schedule.date);
-            //     $("#schedule_id").val(schedule.id);
-            // });
+            $('.parent-day').on('click', '.all', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getAllData();
+            });
+            $('.parent-day').on('click', '.sunday', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getData('Sun');
+            });
+            $('.parent-day').on('click', '.monday', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getData('Mon');
+            });
+            $('.parent-day').on('click', '.tuesday', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getData('Tue');
+            });
+            $('.parent-day').on('click', '.wednesday', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getData('Wed');
+            });
+            $('.parent-day').on('click', '.thursday', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getData('Thu');
+            });
+            $('.parent-day').on('click', '.friday', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getData('Fri');
+            });
+            $('.parent-day').on('click', '.saturday', function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+                getData('Sat');
+            });
+
         });
 
         function getData(day) {
-            $.get(`/guest/${day}/show`, {}, function (data, status) {
-                console.log(data.schedules);   
+            $.get(`/guest/${day}/show`, {}, function (datas, status) {
+                show(datas);
+            });
+        }
+
+        function getAllData() {
+            $.get(`/guest/showAll`, {}, function (datas, status) {
+                show(datas);
+            });
+        }
+
+        function show(datas) {
+            $('.row').html('');
+            $.each(datas, function (i, data) {
+                $('.row').append(`                                
+                                <div class="col-md-6">
+                                    <div class="timetable-item">
+                                        <div class="timetable-item-main">
+                                            <div class="timetable-item-time">${data.subject}</div>
+                                            <div class="timetable-item-name">${data.location}</div>
+                                            <span class="btn btn-primary rounded">${data.date}</span>
+                                            <span class="btn btn-primary rounded">${data.date_time}</span>
+                                        </div>
+                                    </div>
+                                </div>`);
             });
         }
     </script>

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreignId('class_id');
             $table->string('location');
             $table->dateTime('date');
+            $table->string('date_day');
+            $table->text('description');
             $table->timestamps();
         });
     }

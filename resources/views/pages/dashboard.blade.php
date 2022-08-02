@@ -231,7 +231,7 @@ $className = auth()->user()->classUNP->name;
                                 <div class="comment-footer d-md-flex align-items-center">
                                     <span class="btn btn-primary rounded">{{
                                         Carbon\Carbon::parse($schedule->date)->isoFormat('dddd, D MMMM Y') }}</span>
-                                    <span class="btn btn-primary rounded ms-2">{{
+                                    <span class="btn btn-primary rounded ms-1">{{
                                         Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
                                     <div class="text-muted fs-2 ms-auto mt-2 mt-md-0 d-flex parent-edit-schedule">
                                         <button class="btn btn-warning" id="edit-schedule"

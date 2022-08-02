@@ -19,16 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
-Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', function () {
+        return view('login');
+    })->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/guest', [GuestController::class, 'index']);
+    Route::get('/guest/{day}/show', [GuestController::class, 'show']);
+    Route::get('/guest/showAll', [GuestController::class, 'showAll']);
+});
 
-Route::get('/guest', [GuestController::class, 'index'])->middleware('guest');
-Route::get('/guest/{day}/show', [GuestController::class, 'show'])->middleware('guest');
 
 Route::middleware(['auth'])->group(function() {
+    Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+
     Route::resource('schedule', ScheduleController::class)->names('schedule');
     Route::resource('subject', SubjectController::class)->names('subject');
 
@@ -64,5 +68,3 @@ Route::middleware(['auth'])->group(function() {
     //     return view('pages.404');
     // })->name('404-page');
 });
-
-

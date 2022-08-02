@@ -48,6 +48,8 @@ class ScheduleController extends Controller
             'date' => ['required', 'date'],
         ]);
         $validatedData += ['class_id' => auth()->user()->classId];
+        $validatedData += ['date_day' => Carbon::parse($r->date)->format('D')];
+        $validatedData += ['description' => 'Experimental'];
 
         Schedule::create($validatedData);
         return redirect()->route('schedule.index')->with('success', 'Jadwal berhasil dibuat');
