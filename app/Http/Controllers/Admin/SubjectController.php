@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
@@ -64,7 +65,8 @@ class SubjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $subject = DB::table('subject')->where('id', $id)->first(['id', 'name', 'lecturer']);
+        return response()->json(compact('subject'));
     }
 
     /**
@@ -74,9 +76,19 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Subject $subject)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required', 'min:4'],
+            'lecturer' => ['required', 'min:4'],
+        ]);
+
+        if ($validatedData) {
+            $subject->update($validatedData);
+            return response()->json(['success' => true, 'msg' => 'Mapel berhasil diubah'], 200);
+        }
+
+        return response()->json(['success' => false, 'msg' => 'Mapel gagal diubah'], 500);
     }
 
     /**

@@ -48,7 +48,7 @@ class ScheduleController extends Controller
             'date' => ['required', 'date'],
         ]);
         $validatedData += ['class_id' => auth()->user()->classId];
- 
+
         Schedule::create($validatedData);
         return redirect()->route('schedule.index')->with('success', 'Jadwal berhasil dibuat');
     }
@@ -96,7 +96,7 @@ class ScheduleController extends Controller
             return response()->json(['success' => true, 'msg' => 'Jadwal berhasil diubah'], 200);
         }
 
-        return response()->json(['success' => false, 'msg' => 'Jadwal tidak dapat diubah'], 500);
+        return response()->json(['success' => false, 'msg' => 'Jadwal gagal diubah'], 500);
     }
 
     /**
