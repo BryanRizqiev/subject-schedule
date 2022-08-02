@@ -21,7 +21,7 @@ class LoginController extends Controller
             return redirect()->intended(route('schedule.index'));
         }
 
-        return back();
+        return back()->with('message', 'Username & Password Anda Salah');
     }
 
     public function logout(Request $r)
