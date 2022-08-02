@@ -42,7 +42,7 @@ class SubjectController extends Controller
         ]);
 
         Subject::create($validatedData);
-        return redirect()->route('schedule.index')->with('create-schedule-success', 'Jadwal berhasil dibuat');
+        return redirect()->route('schedule.index')->with('success', 'Jadwal berhasil dibuat');
     }
 
     /**
@@ -90,6 +90,6 @@ class SubjectController extends Controller
         $subject->schedules()->delete(); 
         $subject->delete();
 
-        return redirect()->back()->with('destroy-schedule-success', 'Mapel berhasil dihapus');
+        return redirect()->back()->with('success', 'Mapel berhasil dihapus');
     }
 }

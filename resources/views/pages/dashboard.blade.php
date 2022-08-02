@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+   $className = auth()->user()->classUNP->name; 
+@endphp
+
 <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog" role="document">
@@ -68,23 +72,9 @@
 <div class="page-wrapper">
 
 
-    @if (session('create-schedule-success'))
+    @if (session('success'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ session()->get('create-schedule-success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-
-    @if (session('destroy-schedule-success'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ session()->get('destroy-schedule-success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
-
-    @if (session('create-subject-success'))
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{ session()->get('create-subject-success') }}
+        {{ session()->get('success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
@@ -95,7 +85,7 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Dashboard kelas {{ auth()->user()->classUNP->name }}</h4>
+                <h4 class="page-title">Dashboard kelas {{ $className }}</h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 <div class="d-md-flex">
@@ -172,7 +162,7 @@
             <div class="col-md-12 col-lg-8 col-sm-12">
                 <div class="card white-box p-0">
                     <div class="card-body">
-                        <h3 class="box-title mb-0">Kelas {{ auth()->user()->classUNP->name }} minggu ini</h3>
+                        <h3 class="box-title mb-0">Kelas {{ $className }} minggu ini</h3>
                     </div>
                     <div class="comment-widgets">
                         <!-- Comment Row -->
@@ -253,44 +243,43 @@
         $(document).ready(function () {
             $('.parent-edit-schedule').on('click', '#edit-schedule', function () {
                 const id = $(this).data('id');
-                show(id);
-            });
+                showESheduleM(id);
 
-            $('#edit-schedule-submit').click( function () {
+                $('#edit-schedule-submit').click(function () {
 
-                const id = $("#schedule_id").val();
+                    const id = $("#schedule_id").val();
 
-                $.ajax({
-                    method: "PUT",
-                    url: "schedule/" + id,
-                    data: $('#modalForm').serialize(),
-                    type: 'json',
-                    beforeSend: function () {
-                        $('#loading').show();
-                        $('#edit-schedule-submit').attr('disabled', true);
-                    },
-                    success: function (data) {
-                        $('#loading').hide();
-                        $('#edit-schedule-submit').attr('disabled', false);
-                        $('#message').html(`
+                    $.ajax({
+                        method: "PUT",
+                        url: "schedule/" + id,
+                        data: $('#modalForm').serialize(),
+                        type: 'json',
+                        beforeSend: function () {
+                            $('#loading').show();
+                            $('#edit-schedule-submit').attr('disabled', true);
+                        },
+                        success: function (data) {
+                            $('#loading').hide();
+                            $('#edit-schedule-submit').attr('disabled', false);
+                            $('#message').html(`
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             ${data.msg}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`);
 
-                        setTimeout(function () {
-                            $('#message').hide();
-                            location.reload();
-                        }, 2000);
+                            setTimeout(function () {
+                                $('#message').hide();
+                                location.reload();
+                            }, 2000);
 
-
-                    }
+                        }
+                    });
                 });
             });
         });
 
-        function show(id) {
-            $.get(`schedule/${id}/edit`, {}, function(data, status) {
+        function showESheduleM(id) {
+            $.get(`schedule/${id}/edit`, {}, function (data, status) {
                 const schedule = data.schedule;
                 $("#modalContactForm").modal('show');
                 $("#subject_id").val(schedule.subject_id);
@@ -298,7 +287,7 @@
                 $("#date").val(schedule.date);
                 $("#schedule_id").val(schedule.id);
             });
-            
+
         }
     </script>
     @endpush

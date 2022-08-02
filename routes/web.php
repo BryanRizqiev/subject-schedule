@@ -30,9 +30,9 @@ Route::middleware(['auth'])->group(function() {
         return redirect()->route('schedule.index');
     });
 
-    Route::get('/create-schedule', function () {
-        return view('pages.create-schedule');
-    })->name('create-schedule');
+    // Route::get('/create-schedule', function () {
+    //     return view('pages.create-schedule');
+    // })->name('create-schedule');
 
     Route::get('/create-subject', function () {
         return view('pages.create-subject');

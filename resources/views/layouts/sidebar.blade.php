@@ -16,7 +16,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('create-schedule') }}"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('schedule.create') }}"
                         aria-expanded="false">
                         <i class="fas fa-calendar-plus" aria-hidden="true"></i>
                         <span class="hide-menu">Buat jadwal</span>

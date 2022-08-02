@@ -41,20 +41,8 @@
                                 <div class="col-sm-12 border-bottom">
                                     <select class="form-select shadow-none p-0 border-0 form-control-line" id="subject_id"
                                         name="subject_id">
-                                        @foreach (App\Models\Subject::all() as $subject)
+                                        @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label class="col-sm-12" for="class_id">Pilih kelas</label>
-
-                                <div class="col-sm-12 border-bottom">
-                                    <select class="form-select shadow-none p-0 border-0 form-control-line" id="class_id"
-                                        name="class_id">
-                                        @foreach (App\Models\ClassUNP::all() as $class)
-                                        <option value="{{ $class->id }}">{{ $class->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>

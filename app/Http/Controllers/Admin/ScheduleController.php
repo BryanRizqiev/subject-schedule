@@ -30,7 +30,8 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        $subjects = DB::table('subject')->get(['id', 'name']);
+        return view('pages.create-schedule', compact('subjects'));
     }
 
     /**
@@ -43,13 +44,13 @@ class ScheduleController extends Controller
     {
         $validatedData = $r->validate([
             'subject_id' => ['required', 'numeric'],
-            'class_id' => ['required', 'numeric'],
             'location' => ['required'],
             'date' => ['required', 'date'],
         ]);
-
+        $validatedData += ['class_id' => auth()->user()->classId];
+ 
         Schedule::create($validatedData);
-        return redirect()->route('schedule.index')->with('create-subject-success', 'Mapel berhasil dibuat');
+        return redirect()->route('schedule.index')->with('success', 'Mapel berhasil dibuat');
     }
 
     /**
@@ -69,8 +70,9 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Schedule $schedule)
+    public function edit($id)
     {
+        $schedule = DB::table('schedule')->where('id', $id)->first(['id', 'subject_id', 'location', 'date']);
         return response()->json(compact('schedule'));
     }
 
@@ -90,12 +92,11 @@ class ScheduleController extends Controller
         ]);
 
         if ($validatedData) {
-            $schedule->update($request->all());
+            $schedule->update($validatedData);
             return response()->json(['success' => true, 'msg' => 'Jadwal berhasil diubah'], 200);
         }
 
         return response()->json(['success' => false, 'msg' => 'Jadwal tidak dapat diubah'], 500);
-        // return redirect()->back()->with('update-schedule-success', 'Jadwal berhasil diubah');
     }
 
     /**
@@ -108,6 +109,6 @@ class ScheduleController extends Controller
     {
         $schedule->delete();
 
-        return redirect()->back()->with('destroy-schedule-success', 'Jadwal berhasil dihapus');
+        return redirect()->back()->with('success', 'Jadwal berhasil dihapus');
     }
 }
