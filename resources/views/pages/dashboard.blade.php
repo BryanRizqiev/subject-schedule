@@ -240,10 +240,11 @@
 
     @push('custom-script')
     <script>
+        //perlu optimasi
         $(document).ready(function () {
             $('.parent-edit-schedule').on('click', '#edit-schedule', function () {
                 const id = $(this).data('id');
-                showESheduleM(id);
+                showEShceduleM(id);
 
                 $('#edit-schedule-submit').click(function () {
 
@@ -278,7 +279,7 @@
             });
         });
 
-        function showESheduleM(id) {
+        function showEShceduleM(id) {
             $.get(`schedule/${id}/edit`, {}, function (data, status) {
                 const schedule = data.schedule;
                 $("#modalContactForm").modal('show');

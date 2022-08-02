@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Reglog\LoginController;
+use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +24,9 @@ Route::get('/login', function () {
 })->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+
+Route::get('/guest', [GuestController::class, 'index'])->middleware('guest');
+Route::get('/guest/{day}/show', [GuestController::class, 'show'])->middleware('guest');
 
 Route::middleware(['auth'])->group(function() {
     Route::resource('schedule', ScheduleController::class)->names('schedule');
