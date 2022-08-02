@@ -11,7 +11,7 @@
     <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Halamn membuat mapel</h4>
+                <h4 class="page-title">Halaman membuat mapel</h4>
             </div>
         </div>
         <!-- /.col-lg-12 -->
@@ -32,8 +32,7 @@
             <div class="col-lg-8 col-xlg-9 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('subject.store') }}" method="POST"
-                            class="form-horizontal form-material">
+                        <form action="{{ route('subject.store') }}" method="POST" class="form-horizontal form-material">
                             @csrf
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0" for="name">Name mapel</label>

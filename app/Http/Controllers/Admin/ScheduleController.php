@@ -50,7 +50,7 @@ class ScheduleController extends Controller
         $validatedData += ['class_id' => auth()->user()->classId];
  
         Schedule::create($validatedData);
-        return redirect()->route('schedule.index')->with('success', 'Mapel berhasil dibuat');
+        return redirect()->route('schedule.index')->with('success', 'Jadwal berhasil dibuat');
     }
 
     /**

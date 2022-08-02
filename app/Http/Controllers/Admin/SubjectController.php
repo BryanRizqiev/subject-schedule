@@ -37,12 +37,12 @@ class SubjectController extends Controller
     public function store(Request $r)
     {
         $validatedData = $r->validate([
-            'name' => ['required', 'min:4'], 
-            'lecturer' => ['required', 'min:4'], 
+            'name' => ['required', 'min:4'],
+            'lecturer' => ['required', 'min:4'],
         ]);
 
         Subject::create($validatedData);
-        return redirect()->route('schedule.index')->with('success', 'Jadwal berhasil dibuat');
+        return redirect()->route('schedule.index')->with('success', 'Mapel berhasil dibuat');
     }
 
     /**
@@ -87,7 +87,7 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        $subject->schedules()->delete(); 
+        $subject->schedules()->delete();
         $subject->delete();
 
         return redirect()->back()->with('success', 'Mapel berhasil dihapus');
