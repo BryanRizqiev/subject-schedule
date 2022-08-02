@@ -3,10 +3,13 @@
 @section('content')
 
 @php
-   $className = auth()->user()->classUNP->name; 
+$className = auth()->user()->classUNP->name;
 @endphp
 
-<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!-- ============================================================== -->
+<!-- Modal Schedule Form Start -->
+<!-- ============================================================== -->
+<div class="modal fade" id="popupModalScheduleForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -18,11 +21,11 @@
                 </button>
             </div>
             <div class="modal-body mx-3 parent-modal-form">
-                <form id="modalForm">
+                <form id="modalScheduleForm">
                     @csrf
                     @method('PUT')
-                    <div id="message"></div>
-                    <input type="hidden" id="schedule_id">
+                    <div id="messageScheduleStatus"></div>
+                    <input type="hidden" id="schedule_id" name="schedule_id">
                     <div class="form-group mb-5">
                         <label class="col-sm-12" for="subject_id">Pilih mapel</label>
 
@@ -65,6 +68,60 @@
         </div>
     </div>
 </div>
+<!-- ============================================================== -->
+<!-- Modal Schedule Form End -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- Modal Subject Form Start -->
+<!-- ============================================================== -->
+<div class="modal fade" id="popupModalSubjectForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Edit Mapel</h4>
+                <button type="button" class="close btn btn-danger text-white" data-bs-dismiss="modal"
+                    aria-label="Close">
+                    X
+                </button>
+            </div>
+            <div class="modal-body mx-3 parent-modal-form">
+                <form id="modalSubjectForm">
+                    @csrf
+                    @method('PUT')
+                    <div id="messageSubjectStatus"></div>
+                    <input type="hidden" id="subject_id" name="subject_id">
+                    <div class="form-group mb-3">
+                        <label class="col-sm-12" for="subject_name">Nama Mapel</label>
+
+                        <div class="col-sm-12 border-bottom">
+                            <input type="text" name="name" id="name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="col-sm-12" for="subject_name">Nama Dosen</label>
+
+                        <div class="col-sm-12 border-bottom">
+                            <input type="text" name="lecturer" id="lecturer" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <button class="btn btn-primary" type="button" id="edit-subject-submit">
+                            <span class="spinner-border text-primary spinner-border-sm" id="loading"
+                                style="display:none;" role="status" aria-hidden="true"></span> Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Modal Subject Form End -->
+<!-- ============================================================== -->
 
 <!-- ============================================================== -->
 <!-- Page wrapper  -->
@@ -115,40 +172,40 @@
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Iki diisi opo?</h3>
+                    <h3 class="box-title">Jumlah Kelas</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash"><canvas width="67" height="30"
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-success">200</span></li>
+                        <li class="ms-auto"><span class="counter text-success">25</span></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Total Page Views</h3>
+                    <h3 class="box-title">Jumlah Jadwal</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash2"><canvas width="67" height="30"
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-purple">200</span></li>
+                        <li class="ms-auto"><span class="counter text-purple">50</span></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Unique Visitor</h3>
+                    <h3 class="box-title">Jumlah Mapel</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash3"><canvas width="67" height="30"
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-info">200</span>
+                        <li class="ms-auto"><span class="counter text-info">130</span>
                         </li>
                     </ul>
                 </div>
@@ -203,8 +260,9 @@
                             @foreach ($subjects as $subject)
                             <li>
                                 <div class="call-chat">
-                                    <div class="d-flex">
-                                        <button class="btn btn-warning text-white btn-circle btn" type="button">
+                                    <div class="d-flex parent-edit-subject">
+                                        <button class="btn btn-warning text-white btn-circle btn" id="edit-subject"
+                                            data-id="{{ $subject->id }}">
                                             <i class="fas fa-file-alt"></i>
                                         </button>
                                         <form action="{{ route('subject.destroy', $subject->id) }}"
@@ -253,7 +311,7 @@
                     $.ajax({
                         method: "PUT",
                         url: "schedule/" + id,
-                        data: $('#modalForm').serialize(),
+                        data: $('#modalScheduleForm').serialize(),
                         type: 'json',
                         beforeSend: function () {
                             $('#loading').show();
@@ -262,14 +320,14 @@
                         success: function (data) {
                             $('#loading').hide();
                             $('#edit-schedule-submit').attr('disabled', false);
-                            $('#message').html(`
+                            $('#messageScheduleStatus').html(`
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             ${data.msg}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`);
 
                             setTimeout(function () {
-                                $('#message').hide();
+                                $('#messageScheduleStatus').hide();
                                 location.reload();
                             }, 2000);
 
@@ -277,18 +335,66 @@
                     });
                 });
             });
+
+            
+            $('.parent-edit-subject').on('click', '#edit-subject', function () {
+                const id = $(this).data('id');
+                showSubjectM(id);
+
+                $('#edit-subject-submit').click(function () {
+
+                    const id = $("#subject_id").val();
+
+                    $.ajax({
+                        method: "PUT",
+                        url: "subject/" + id,
+                        data: $('#modalSubjectForm').serialize(),
+                        type: 'json',
+                        beforeSend: function () {
+                            $('#loading').show();
+                            $('#edit-subject-submit').attr('disabled', true);
+                        },
+                        success: function (data) {
+                            $('#loading').hide();
+                            $('#edit-subject-submit').attr('disabled', false);
+                            $('#messageSubjectStatus').html(`
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            ${data.msg}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`);
+
+                            setTimeout(function () {
+                                $('#messageSubjectStatus').hide();
+                                location.reload();
+                            }, 2000);
+
+                        }
+                    });
+                });
+            });
+
         });
 
         function showEShceduleM(id) {
             $.get(`schedule/${id}/edit`, {}, function (data, status) {
                 const schedule = data.schedule;
-                $("#modalContactForm").modal('show');
+                $("#popupModalScheduleForm").modal('show');
                 $("#subject_id").val(schedule.subject_id);
                 $("#location").val(schedule.location);
                 $("#date").val(schedule.date);
                 $("#schedule_id").val(schedule.id);
             });
 
+        }
+
+        function showSubjectM(id) {
+            $.get(`subject/${id}/edit`, {}, function (data, status) {
+                const subject = data.subject;
+                $("#popupModalSubjectForm").modal('show');
+                $("#subject_id").val(subject.id);
+                $("#name").val(subject.name);
+                $("#lecturer").val(subject.lecturer);
+            });
         }
     </script>
     @endpush
