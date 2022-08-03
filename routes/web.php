@@ -19,26 +19,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return redirect('/guest');
+});
+
+Route::get('/guest', [GuestController::class, 'index'])->middleware(['guest', 'visitor'])->name('guest');
+
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', function () {
         return view('login');
     })->name('login');
     Route::post('/login', [LoginController::class, 'login']);
-    Route::get('/guest', [GuestController::class, 'index']);
     Route::get('/guest/{day}/show', [GuestController::class, 'show']);
     Route::get('/guest/showAll', [GuestController::class, 'showAll']);
 });
-
 
 Route::middleware(['auth'])->group(function() {
     Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
     Route::resource('schedule', ScheduleController::class)->names('schedule');
     Route::resource('subject', SubjectController::class)->names('subject');
-
-    Route::get('/', function () {
-        return redirect()->route('schedule.index');
-    });
 
     // Route::get('/create-schedule', function () {
     //     return view('pages.create-schedule');
@@ -52,9 +52,9 @@ Route::middleware(['auth'])->group(function() {
     //     return view('pages.basic-table');
     // })->name('basic-table');
     
-    Route::get('/icons', function () {
-        return view('pages.fontawesome');
-    })->name('icons');
+    // Route::get('/icons', function () {
+    //     return view('pages.fontawesome');
+    // })->name('icons');
     
     // Route::get('/google-map', function () {
     //     return view('pages.map-google');

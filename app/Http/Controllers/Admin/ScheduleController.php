@@ -19,9 +19,10 @@ class ScheduleController extends Controller
      */
     public function index()
     {
+        $visitorCount = DB::table('visitor_counter')->count(['id']);
         $schedules = Schedule::whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get(['id', 'location', 'date', 'subject_id']);
         $subjects = DB::table('subject')->get(['id', 'name', 'lecturer']);
-        return view('pages.dashboard', compact('schedules', 'subjects'));
+        return view('pages.dashboard', compact('schedules', 'subjects', 'visitorCount'));
     }
 
     /**
@@ -47,10 +48,11 @@ class ScheduleController extends Controller
             'subject_id' => ['required', 'numeric'],
             'location' => ['required'],
             'date' => ['required', 'date'],
+            'description' => ['required', 'min:10'],
+            'type' => ['required'],
         ]);
         $validatedData += ['class_id' => auth()->user()->classId];
         $validatedData += ['date_day' => Carbon::parse($r->date)->format('D')];
-        $validatedData += ['description' => 'Experimental'];
 
         Schedule::create($validatedData);
         return redirect()->route('schedule.index')->with('success', 'Jadwal berhasil dibuat');
@@ -100,6 +102,8 @@ class ScheduleController extends Controller
             'location' => ['required'],
             'date' => ['required', 'date'],
         ]);
+        
+        $validatedData += ['date_day' => Carbon::parse($request->date)->format('D')];
 
         if ($validatedData) {
             $schedule->update($validatedData);

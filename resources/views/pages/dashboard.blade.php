@@ -171,40 +171,40 @@ $className = auth()->user()->classUNP->name;
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Jumlah Kelas</h3>
+                    <h3 class="box-title">Jumlah jadwal minggu ini</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash"><canvas width="67" height="30"
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-success">25</span></li>
+                        <li class="ms-auto"><span class="counter text-success">{{ $schedules->count() }}</span></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Jumlah Jadwal</h3>
+                    <h3 class="box-title">Jumlah mapel</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash2"><canvas width="67" height="30"
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-purple">50</span></li>
+                        <li class="ms-auto"><span class="counter text-purple">{{ $subjects->count() }}</span></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="white-box analytics-info">
-                    <h3 class="box-title">Jumlah Mapel</h3>
+                    <h3 class="box-title">Jumlah visitor</h3>
                     <ul class="list-inline two-part d-flex align-items-center mb-0">
                         <li>
                             <div id="sparklinedash3"><canvas width="67" height="30"
                                     style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                             </div>
                         </li>
-                        <li class="ms-auto"><span class="counter text-info">130</span>
+                        <li class="ms-auto"><span class="counter text-info">{{ $visitorCount }}</span>
                         </li>
                     </ul>
                 </div>
@@ -312,13 +312,13 @@ $className = auth()->user()->classUNP->name;
                         url: "schedule/" + id,
                         data: $('#modalScheduleForm').serialize(),
                         type: 'json',
-                        beforeSend: function () {
-                            $('#loading').show();
-                            $('#edit-schedule-submit').attr('disabled', true);
-                        },
+                        // beforeSend: function () {
+                        //     $('#loading').show();
+                        //     $('#edit-schedule-submit').attr('disabled', true);
+                        // },
                         success: function (data) {
-                            $('#loading').hide();
-                            $('#edit-schedule-submit').attr('disabled', false);
+                            // $('#loading').hide();
+                            // $('#edit-schedule-submit').attr('disabled', false);
                             $('#messageScheduleStatus').html(`
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             ${data.msg}
@@ -338,7 +338,7 @@ $className = auth()->user()->classUNP->name;
 
             $('.parent-edit-subject').on('click', '#edit-subject', function () {
                 const id = $(this).data('id');
-                showSubjectM(id);
+                showESubjectM(id);
 
                 $('#edit-subject-submit').click(function () {
 
@@ -367,7 +367,7 @@ $className = auth()->user()->classUNP->name;
                                 location.reload();
                             }, 2000);
 
-                        }
+                        },
                     });
                 });
             });
@@ -377,15 +377,15 @@ $className = auth()->user()->classUNP->name;
         function showEShceduleM(id) {
             $.get(`schedule/${id}/edit`, {}, function (data, status) {
                 $("#popupModalScheduleForm").modal('show');
+                $("#schedule_id").val(data.id);
                 $("#subject_id").val(data.subject_id);
                 $("#location").val(data.location);
                 $("#date").val(data.date);
-                $("#schedule_id").val(data.id);
             });
 
         }
 
-        function showSubjectM(id) {
+        function showESubjectM(id) {
             $.get(`subject/${id}/edit`, {}, function (data, status) {
                 const subject = data.subject;
                 $("#popupModalSubjectForm").modal('show');
