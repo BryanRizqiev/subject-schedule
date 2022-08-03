@@ -128,7 +128,6 @@ $className = auth()->user()->classUNP->name;
 <!-- ============================================================== -->
 <div class="page-wrapper">
 
-
     @if (session('success'))
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         {{ session()->get('success') }}
@@ -235,7 +234,7 @@ $className = auth()->user()->classUNP->name;
                                         Carbon\Carbon::parse($schedule->date)->toTimeString() }}</span>
                                     <div class="text-muted fs-2 ms-auto mt-2 mt-md-0 d-flex parent-edit-schedule">
                                         <button class="btn btn-warning" id="edit-schedule"
-                                            data-id="{{ $schedule->id }}">Edit</button>
+                                            data-id="{{ Crypt::encryptString($schedule->id) }}">Edit</button>
                                         <form class="ms-1" action="{{ route('schedule.destroy', $schedule->id) }}"
                                             onsubmit="return confirm('Yakin ?')" method="POST">
                                             @csrf
@@ -336,7 +335,7 @@ $className = auth()->user()->classUNP->name;
                 });
             });
 
-            
+
             $('.parent-edit-subject').on('click', '#edit-subject', function () {
                 const id = $(this).data('id');
                 showSubjectM(id);
@@ -377,12 +376,11 @@ $className = auth()->user()->classUNP->name;
 
         function showEShceduleM(id) {
             $.get(`schedule/${id}/edit`, {}, function (data, status) {
-                const schedule = data.schedule;
                 $("#popupModalScheduleForm").modal('show');
-                $("#subject_id").val(schedule.subject_id);
-                $("#location").val(schedule.location);
-                $("#date").val(schedule.date);
-                $("#schedule_id").val(schedule.id);
+                $("#subject_id").val(data.subject_id);
+                $("#location").val(data.location);
+                $("#date").val(data.date);
+                $("#schedule_id").val(data.id);
             });
 
         }

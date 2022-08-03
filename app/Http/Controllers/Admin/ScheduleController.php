@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use App\Models\Subject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
@@ -74,8 +75,13 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        $schedule = DB::table('schedule')->where('id', $id)->first(['id', 'subject_id', 'location', 'date']);
-        return response()->json(compact('schedule'));
+        $schedule = Schedule::where('id', Crypt::decryptString($id))->first(['id', 'subject_id', 'location', 'date']);
+        return response()->json([
+            'id' => Crypt::encryptString($schedule->id),
+            'subject_id' => $schedule->subject_id, 
+            'location' => $schedule->location, 
+            'date' => $schedule->date, 
+        ] ,200);
     }
 
     /**
@@ -85,8 +91,10 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, $id)
     {
+        //perlu optimasi
+        $schedule = Schedule::findOrFail(Crypt::decryptString($id));
         $validatedData = $request->validate([
             'subject_id' => ['required', 'numeric'],
             'location' => ['required'],
