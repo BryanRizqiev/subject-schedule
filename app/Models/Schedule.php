@@ -14,7 +14,7 @@ class Schedule extends Model
 
     protected $with = ['subject'];
     
-    protected $fillable = ['subject_id', 'class_id', 'location', 'date', 'date_day', 'description'];
+    protected $fillable = ['subject_id', 'class_id', 'location', 'date', 'date_day', 'type' ,'description'];
 
     public function subject()
     {

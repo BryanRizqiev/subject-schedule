@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('create-subject') }}"
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('create-subject') }}"
                         aria-expanded="false">
                         <i class=" fas fa-plus-square" aria-hidden="true"></i>
                         <span class="hide-menu">Buat mapel</span>
@@ -36,13 +36,13 @@
                         <span class="hide-menu">Basic Table</span>
                     </a>
                 </li> --}}
-                <li class="sidebar-item">
+                {{-- <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('icons') }}"
                         aria-expanded="false">
                         <i class="fa fa-font" aria-hidden="true"></i>
                         <span class="hide-menu">Icon</span>
                     </a>
-                </li>
+                </li> --}}
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ URL::route('google-map') }}"
                         aria-expanded="false">

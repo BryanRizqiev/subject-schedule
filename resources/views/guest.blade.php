@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
     <!--  All snippets are MIT license http://bootdey.com/license -->
-    <title>Schedule table - Bootdey.com</title>
+    <title>Schedule table</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="{{ asset('plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,7 +16,6 @@
 </head>
 
 <body>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
     <div class="idance">
         <div class="schedule content-block">
@@ -287,22 +286,32 @@
         }
 
         function show(datas) {
+            console.log(datas);
             $('.row').html('');
             $.each(datas, function (i, data) {
                 $('.row').append(`                                
                                 <div class="col-md-6">
-                                    <div class="timetable-item">
+                                    <div class="timetable-item rounded">
                                         <div class="timetable-item-main">
+                                            <div class="d-inline float-end btn btn-success">
+                                                <i class="fa-solid fa-clipboard-list"></i>
+                                            </div>
                                             <div class="timetable-item-time">${data.subject}</div>
-                                            <div class="timetable-item-name">${data.location}</div>
-                                            <span class="btn btn-primary rounded">${data.date}</span>
-                                            <span class="btn btn-primary rounded">${data.date_time}</span>
+                                            ${data.type == 'Offline' ? '<div class="timetable-item-name">' + data.location + '</div>' : '<div class="timetable-item-name">Bebas</div>'}
+                                                <span class="btn btn-primary rounded">${data.date}</span>
+                                                <span class="btn btn-primary rounded">${data.date_time}</span> 
+                                            <div class=mt-1>
+                                                <span class="btn btn-primary rounded">${data.date_for_human}</span>
+                                                ${data.type == 'Online' ? '<span class="badge bg-warning rounded">Online</span>' : '<span class="badge bg-secondary rounded">Offline</span>'}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>`);
             });
         }
     </script>
+    
+    <script src="https://kit.fontawesome.com/d4310dc43d.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

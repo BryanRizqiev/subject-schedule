@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('subject_id');
             $table->foreignId('class_id');
             $table->string('location');
+            $table->string('type');
             $table->dateTime('date');
             $table->string('date_day');
             $table->text('description');
