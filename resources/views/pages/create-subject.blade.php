@@ -37,13 +37,19 @@
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0" for="name">Name mapel</label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" id="name" name="name" class="form-control p-0 border-0">
+                                    <input type="text" id="name" name="name" class="form-control p-0 border-0 @error('name') is-invalid @enderror">
+                                    @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label class="col-md-12 p-0" for="lecturer">Nama dosen</label>
                                 <div class="col-md-12 border-bottom p-0">
-                                    <input type="text" id="lecturer" name="lecturer" class="form-control p-0 border-0">
+                                    <input type="text" id="lecturer" name="lecturer" class="form-control p-0 border-0 @error('lecturer') is-invalid @enderror">
+                                    @error('lecturer')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group mb-4">
